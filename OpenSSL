@@ -1,0 +1,5 @@
+
+ openssl genrsa -des3 -out /etc/httpd/apachessl/www.test.com.key 2048
+openssl rsa -in /etc/httpd/apachessl/www.test.com.key -out /etc/httpd/apachessl/www.test.com.key.nosecurity
+       openssl req -new -key /etc/httpd/apachessl/www.test.com.key -out /etc/httpd/apachessl/www.test.com.csr
+       openssl x509 -req -days 365 -in /etc/httpd/apachessl/www.test.com.csr -signkey /etc/httpd/apachessl/www.test.com.key -out /etc/httpd/apachessl/www.test.com.crt
