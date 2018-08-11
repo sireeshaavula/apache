@@ -1,5 +1,25 @@
 
+ 
  openssl genrsa -des3 -out /etc/httpd/apachessl/www.test.com.key 2048
 openssl rsa -in /etc/httpd/apachessl/www.test.com.key -out /etc/httpd/apachessl/www.test.com.key.nosecurity
        openssl req -new -key /etc/httpd/apachessl/www.test.com.key -out /etc/httpd/apachessl/www.test.com.csr
        openssl x509 -req -days 365 -in /etc/httpd/apachessl/www.test.com.csr -signkey /etc/httpd/apachessl/www.test.com.key -out /etc/httpd/apachessl/www.test.com.crt
+
+
+#Enabling ssl
+NameVirtualHost *:443
+<VirtualHost  *:443>
+ServerName www.test.com
+DocumentRoot  /var/www/html
+DirectoryIndex index.html
+SSLEngine on
+SSLCertificateFile /etc/httpd/apachessl/www.test.com.crt
+SSLCertificateKeyFile /etc/httpd/apachessl/www.test.com.key
+
+<Directory "/var/www/html">
+AllowOverride All
+Options FollowSymLinks
+Order allow,deny
+Allow from all
+</Directory>
+</VirtualHost>
